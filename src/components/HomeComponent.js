@@ -16,10 +16,12 @@ function RenderCard({item, isLoading, errMess}) {
               <Loading />
       );
   }
-  else if (errMess) {
-      return(
-              <h4>{errMess}</h4>
-      );
+  else if ({errMess}) {
+      return(<div className="container">
+      <h4>{errMess}</h4>
+     
+      </div>
+      );         
   }
   else 
       return(
@@ -31,6 +33,7 @@ function RenderCard({item, isLoading, errMess}) {
               <CardText>{item.description}</CardText>
               </CardBody>
           </Card>
+      
       );
 
 }
