@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+
 const required = val => val && val.length;
 const maxLength = len => val => !val || val.length <= len;
 const minLength = len => val => val && val.length >= len;
@@ -50,8 +51,8 @@ class CommentForm extends Component {
 
     console.log("Current State is: " + JSON.stringify(values));
     alert("Current State is: " + JSON.stringify(values));
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
-
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
+            
   }
 
   render() {
@@ -141,8 +142,7 @@ class CommentForm extends Component {
     );
   }
 }
-
-function RenderComments({comments, addComment, dishId}) {
+function RenderComments({comments, postComment, dishId}) {
   if (comments != null) {
     const comment = comments.map(comment => {
       return (
@@ -164,7 +164,7 @@ function RenderComments({comments, addComment, dishId}) {
       <div className="col-12 col-md-5 m-1">
         <h4> Comments </h4>
         <ul className="list-unstyled">{comment}</ul>
-        <CommentForm dishId={dishId} addComment={addComment} />
+        <CommentForm dishId={dishId} postComment={postComment} />
       </div>
     );
   } else {
@@ -227,7 +227,7 @@ else if (props.dish != null) {
         <div className="row">
           <RenderDish dish={props.dish} />
           <RenderComments comments={props.comments}
-        addComment={props.addComment}
+        postComment={props.postComment}
         dishId={props.dish.id}
       />
         </div>
