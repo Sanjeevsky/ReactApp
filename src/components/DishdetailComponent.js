@@ -147,7 +147,7 @@ function RenderComments({comments, postComment, dishId}) {
   if (comments != null) {
     const comment = comments.map(comment => {
       return (
-        <Fade in>
+        <Fade in key={comment.id}>
         <li key={comment.id}>
           <p>{comment.comment}</p>
           <p>
@@ -165,10 +165,11 @@ function RenderComments({comments, postComment, dishId}) {
     return (
       <div className="col-12 col-md-5 m-1">
         <h4> Comments </h4>
+        <ul className="list-unstyled">
         <Stagger in>
-        <ul className="list-unstyled">{comment}</ul>
+        {comment}
         </Stagger>
-        
+        </ul>
         <CommentForm dishId={dishId} postComment={postComment} />
       </div>
     );
@@ -181,6 +182,12 @@ function RenderDish({ dish }) {
   if (dish != null) {
     return (
       <div className="col-12 col-md-5 m-1">
+       <FadeTransform
+        in
+        transformProps={{
+          exitTransform: "scale(0.5) translateY(-50%)"
+        }}
+      >
         <Card>
         <CardImg top src={baseUrl + dish.image} alt={dish.name} />
           <CardBody>
@@ -188,6 +195,7 @@ function RenderDish({ dish }) {
             <CardText>{dish.description}</CardText>
           </CardBody>
         </Card>
+        </FadeTransform>
       </div>
     );
   } else {
